@@ -2,17 +2,21 @@ import { ApiProperty } from '@nestjs/swagger';
 import { IsString, IsEmail, IsArray, IsBoolean } from 'class-validator';
 
 export class CreateStoreDto {
-  @ApiProperty({ description: 'Name of the store' })
+  @ApiProperty({ description: 'storeID of the store' })
   @IsString()
-  name: string;
+  storeID: string;
 
-   @ApiProperty({ description: 'ID of the store' })
+   @ApiProperty({ description: 'storeName of the store' })
   @IsString()
-   location: string;
-  @ApiProperty({ description: 'ID of the store' })
+   storeName: string;
+   
+  @ApiProperty({ description: 'buiding of the store' })
   @IsString()
-  type: string;
-  @ApiProperty({ description: 'ID of the company' })
-  @IsBoolean()
-  active: boolean;
+  buiding: string;
+
+  @ApiProperty({ description: 'Floor of the store' })
+  @IsString()
+  floor: string;
+
+ 
 }

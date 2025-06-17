@@ -1,7 +1,7 @@
 import { Prop } from '@nestjs/mongoose';
 import { Expose, Transform } from 'class-transformer';
 
-export class StoreEntity {
+export class MedEntity {
   @Expose({ name: 'id' })
   @Transform(({ obj }) => (obj._id ? obj._id.toString() : null), {
     toClassOnly: true,
@@ -9,22 +9,22 @@ export class StoreEntity {
   public id: string;
 
   @Expose()
+  @Prop({ type: String, unique: true, required: true })
+  medID: string;
+  
+  @Expose()
   @Prop({ type: String, required: true })
+  medName: string;
+
+  @Expose()
+  @Prop({ type: String, required: true})
   storeID: string;
 
   @Expose()
   @Prop({ type: String, required: true })
-  storeName: string;
+  location: number;
 
-  @Expose()
-  @Prop({ type: String, required: true })
-  buiding: string;
-
-  @Expose()
-  @Prop({ type: String, required: false })
-  floor: string;
-
-  @Expose()
+   @Expose()
   @Prop({ type: String, required: false })
   companyId: string;
   

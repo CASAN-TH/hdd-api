@@ -16,13 +16,6 @@ export class CreateStoreHandler
 
   async execute(command: CreateStoreCommand): Promise<ResponseDto<StoreEntity>> {
     const { createStoreDto, createdBy } = command;
-    const existingStore = await this.storeRepository.findByName(
-      createStoreDto.name,
-    );
-    console.table(existingStore);
-    if (existingStore) {
-      throw new BadRequestException('Store already exists');
-    }
     const today = new Date();
     const store = new StoreEntity();
     Object.assign(store, createStoreDto);

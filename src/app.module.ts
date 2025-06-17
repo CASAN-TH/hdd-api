@@ -6,6 +6,7 @@ import { JwtModule } from '@nestjs/jwt';
 import * as dotenv from 'dotenv';
 import { AuthModule } from './auth/auth.module';
 import { StoreModule } from './store/store.module';
+import { MedModule } from './med/med.module';
 dotenv.config(); // โหลดตัวแปรจากไฟล์ .env ก่อน
 
 @Module({
@@ -18,6 +19,7 @@ dotenv.config(); // โหลดตัวแปรจากไฟล์ .env ก
     }),
     // สามารถเพิ่มโมดูลอื่น ๆ ที่ต้องการได้ที่นี่
     AuthModule,
+    MedModule, // โมดูลสำหรับการจัดการยา
     StoreModule // โมดูลสำหรับการจัดการการยืนยันตัวตน
   ],
 })
