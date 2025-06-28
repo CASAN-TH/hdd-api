@@ -10,9 +10,9 @@ export class CreateStoreDto {
   @IsString()
    storeName: string;
    
-  @ApiProperty({ description: 'buiding of the store' })
+  @ApiProperty({ description: 'building of the store' })
   @IsString()
-  buiding: string;
+  building: string;
 
   @ApiProperty({ description: 'Floor of the store' })
   @IsString()

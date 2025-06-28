@@ -18,7 +18,7 @@ export class StoreEntity {
 
   @Expose()
   @Prop({ type: String, required: true })
-  buiding: string;
+  building: string;
 
   @Expose()
   @Prop({ type: String, required: false })
