@@ -12,10 +12,10 @@ export class UpdateStoreDto {
   @IsOptional()
   storeName: string;
 
-  @ApiPropertyOptional({ description: 'buiding of the store' })
+  @ApiPropertyOptional({ description: 'building of the store' })
   @IsString()
   @IsOptional()
-  buiding: string;
+  building: string;
 
   @ApiPropertyOptional({ description: 'floor of the store' })
   @IsString()
