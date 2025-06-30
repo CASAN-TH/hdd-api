@@ -11,6 +11,7 @@ import { GetMedByIdHandler } from './application/queries/get-med-by-id.handler';
 import { MedRepository } from './infrastructure/repositories/med.repository';
 import { MongooseModule } from '@nestjs/mongoose';
 import { MedSchema } from './infrastructure/persistence/med.schema';
+import { MedQuery } from './application/queries/med.query';
 
 @Module({
   imports: [
@@ -26,6 +27,7 @@ import { MedSchema } from './infrastructure/persistence/med.schema';
     DeleteMedHandler,
     GetAllMedsHandler,
     GetMedByIdHandler,
+    MedQuery,
     {
       provide: 'MedRepository',
       useClass: MedRepository,

@@ -33,7 +33,7 @@ export class AuthController {
   @ApiResponse({ status: 200, description: 'User successfully signed in' })
   async signin(@Body() signInDto: SignInDto): Promise<{ accessToken: string }> {
     const command = new SignInUserCommand(
-      signInDto.mail,
+      signInDto.username,
       signInDto.password,
     );
     const accessToken = await this.commandBus.execute(command);

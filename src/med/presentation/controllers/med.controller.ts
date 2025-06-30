@@ -21,6 +21,7 @@ import { GetAllMedsQuery } from '../../application/queries/get-all-meds.query';
 import { RolesAndScopesGuard } from '../../../common/presentation/guards/roles-and-scopes.guard';
 import { DeleteMedCommand } from '../../application/commands/delete-med.command';
 import { GetMedByIdQuery } from '../../application/queries/get-med-by-id.query';
+import { MedQuery } from '../../application/queries/med.query';
 
 @ApiTags('meds')
 @Controller('meds')
@@ -30,6 +31,7 @@ export class MedController {
   constructor(
     private readonly commandBus: CommandBus,
     private readonly queryBus: QueryBus,
+    private readonly medQuery: MedQuery
   ) {}
 
   @Post()
@@ -92,6 +94,11 @@ export class MedController {
     return await this.queryBus.execute(new GetAllMedsQuery(page, limit, sortBy, sortType, keyword, req.user));
   }
 
+  @Get('count-by-store')
+  async getCountByStore() {
+    return this.medQuery.getMedicineCountByStore();
+  }
+
   @Get(':id')
   @ApiOperation({ summary: 'Get a med by ID' })
   @ApiResponse({ status: 200, description: 'Med details' })
@@ -123,4 +130,7 @@ export class MedController {
   async deleteMed(@Param('id') id: string): Promise<void> {
     await this.commandBus.execute(new DeleteMedCommand(id));
   }
+  
+  
+
 }
