@@ -13,9 +13,9 @@ export class SignInUserHandler implements ICommandHandler<SignInUserCommand> {
   ) {}
 
   async execute(command: SignInUserCommand): Promise<string> {
-    const { username, password } = command;
+    const { mail, password } = command;
 
-    const user = await this.userRepository.findByUsername(username);
+    const user = await this.userRepository.findByUsername(mail);
     if (!user) {
       throw new UnauthorizedException('Invalid username or password');
     }
