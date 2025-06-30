@@ -23,6 +23,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { UserSchema } from './infrastructure/persistence/user.schema';
 import { CompanySchema } from './infrastructure/persistence/company.schema';
 import * as dotenv from 'dotenv';
+import { SignInTokenHandler } from './application/commands/signin-token.handler';
 
 dotenv.config(); // โหลดตัวแปรจากไฟล์ .env ก่อน
 
@@ -46,6 +47,7 @@ dotenv.config(); // โหลดตัวแปรจากไฟล์ .env ก
     GetAllUsersHandler,
     RegisterUserHandler,
     SignInUserHandler,
+    SignInTokenHandler,
     UpdateUserHandler,
     ResetPasswordHandler,
     DeleteUserHandler,

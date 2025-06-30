@@ -5,6 +5,9 @@ import { RegisterUserCommand } from './../../../auth/application/commands/regist
 import { SignInUserCommand } from './../../../auth/application/commands/signin-user.command';
 import { RegisterUserDto } from './../../../auth/application/dtos/register-user.dto';
 import { SignInDto } from './../../../auth/application/dtos/signin.dto';
+import { SignInTokenDto } from 'src/auth/application/dtos/signin-token.dto';
+import { ResponseDto } from 'src/common/presentation/dtos/response.dto';
+import { SignInTokenCommand } from 'src/auth/application/commands/signin-token.command';
 
 @ApiTags('auth')
 @Controller({
@@ -35,5 +38,15 @@ export class AuthController {
     );
     const accessToken = await this.commandBus.execute(command);
     return { accessToken };
+  }
+
+  @Post('sign-in-with-token')
+  @ApiOperation({ summary: 'Sign in with an existing access token' })
+  @ApiResponse({ status: 200, description: 'New token issued successfully' })
+  async signInWithToken(
+    @Body() signInTokenDto: SignInTokenDto,
+  ): Promise<ResponseDto<{ accessToken: string }>> {
+    const command = new SignInTokenCommand(signInTokenDto.accessToken);
+    return await this.commandBus.execute(command);
   }
 }

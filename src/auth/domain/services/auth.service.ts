@@ -1,8 +1,6 @@
 import * as bcrypt from 'bcrypt';
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { RequestUserDto } from 'src/common/presentation/dtos/request-user.dto';
-
 @Injectable()
 export class AuthService {
   constructor(private readonly jwtService: JwtService) {}
@@ -31,5 +29,14 @@ export class AuthService {
     };
 
     return this.jwtService.sign(payload);
+  }
+
+  async validateToken(token: string): Promise<any> {
+    try {
+      // ใช้ secret key ที่ใช้ในการเซ็น Access Token
+      return this.jwtService.verify(token, { secret: process.env.JWT_SECRET });
+    } catch (error) {
+      throw new Error('Invalid token');
+    }
   }
 }

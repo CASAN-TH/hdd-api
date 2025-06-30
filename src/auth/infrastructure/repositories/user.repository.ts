@@ -102,7 +102,7 @@ export class UserRepository implements UserRepositoryInterface {
 
   private mapToEntity(user: any): UserEntity {
     const plainObject = user.toObject();
-    delete plainObject.password;
+    // delete plainObject.password;
     const entity = plainToInstance(UserEntity, plainObject, {
       excludeExtraneousValues: true,
     });
