@@ -10,32 +10,44 @@ export class MedQuery {
   ) {}
 
   async getMedicineCountByStore() {
-    return this.medModel.aggregate([
-      {
-        $group: {
-          _id: "$storeID",
-          medicineCount: { $sum: 1 },
+return this.medModel.aggregate([
+  {
+    $lookup: {
+      from: "stores",
+      localField: "storeID",
+      foreignField: "storeID",
+      as: "storeInfo",
+    },
+  },
+  { $unwind: "$storeInfo" },
+  {
+    $group: {
+      _id: {
+        storeID: "$storeID",
+        storeName: "$storeInfo.storeName",
+        building: "$storeInfo.building",
+        floor: "$storeInfo.floor",
+      },
+      medicines: {
+        $push: {
+          id: "$_id",
         },
       },
-      {
-        $lookup: {
-          from: "stores", // ชื่อ collection stores ใน MongoDB
-          localField: "_id",
-          foreignField: "storeID",
-          as: "storeInfo",
-        },
-      },
-      { $unwind: "$storeInfo" },
-      {
-        $project: {
-          _id: 0,
-          storeID: "$_id",
-          medicineCount: 1,
-          storeName: "$storeInfo.storeName",
-          building: "$storeInfo.building",
-          floor: "$storeInfo.floor",
-        },
-      },
-    ]);
+      medicineCount: { $sum: 1 },
+    },
+  },
+  { $unwind: "$medicines" },
+  {
+    $project: {
+      id: "$medicines.id", // ✅ ได้ _id ของยาแต่ละตัว
+      medicineCount: 1,
+      storeID: "$_id.storeID",
+      storeName: "$_id.storeName",
+      building: "$_id.building",
+      floor: "$_id.floor",
+      _id: 0,
+    },
+  },
+]);
   }
 }
